@@ -1,6 +1,13 @@
 let meny = document.getElementById("meny");
 let content = document.getElementById("content");
 
+
+let createNew = document.getElementById("createnew");
+let newUserBtn = document.createElement("button");
+newUserBtn.setAttribute("id", "newuserbtn");
+let newUserBtnText = document.createTextNode("New member? ")
+
+
 let inputUser = document.createElement("input");
 inputUser.setAttribute("type", "text")
 inputUser.setAttribute("id", "inputUser");
@@ -39,12 +46,11 @@ logOutButton.id = "logOutButton";
 let logoutbuttonText = document.createTextNode("Log Out");
 logOutButton.appendChild(logoutbuttonText);
 
-function title(){
 let title = document.createElement("h1");
 let titleText = document.createTextNode("Super awesome login website !!");
 title.appendChild(titleText);
 content.appendChild(title);
-}
+
 
 
 startside();
@@ -59,22 +65,22 @@ function startside(){
 
 function welcome(){
 
-    title();
+    content.appendChild(title);
     message.innerHTML = "Welcome! You should log in!"
-
-}
-
-
-function notInlogged(){
-
-    message.innerHTML = "You logged out!";
-    meny.removeChild(logOutButton);
     meny.appendChild(inputUser);
     meny.appendChild(inputPassword);
     meny.appendChild(logInButton);
     meny.appendChild(labelUser);
     meny.appendChild(labelPassword);
+    createNew.appendChild(newUserBtn);
+
 }
+
+
+// function notInlogged(){
+
+//     message.innerHTML = "You logged out!";
+// }
 
 
 
@@ -131,11 +137,12 @@ function logOutBtn (){
     logOutButton.addEventListener("click", () =>{
     console.log("log out");
     localStorage.removeItem("username");
-    notInlogged();
+    logOutButton.remove(logOutButton);
+    welcome();
 })
 }
 
-const objPeople = [
+let objPeople = [
 
     {
         username: "janne", 
@@ -151,5 +158,72 @@ const objPeople = [
         username: "rolf",
         password: "lolo"
     }
-
 ]
+
+localStorage.setItem("objPeople", JSON.stringify(objPeople));
+
+
+
+// ------------------------------------------------------------------------------------------------------------
+// --------------------------------------------CREATE NEW USER-------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
+
+newUserBtn.appendChild(newUserBtnText);
+createNew.appendChild(newUserBtn)
+
+newUserBtn.addEventListener("click", ()=>{
+
+    createNew.removeChild(newUserBtn);
+    creatediv.appendChild(labelNewUser);
+    creatediv.appendChild(labelNewPassword);
+    creatediv.appendChild(createuser);
+    creatediv.appendChild(createpassword);
+    creatediv.appendChild(createbutton); 
+
+   
+
+});
+
+
+
+let createuser = document.createElement("input");
+createuser.setAttribute("type", "text");
+createuser.setAttribute("id", "createuser")
+let createpassword = document.createElement("input");   
+createpassword.setAttribute("type", "text");
+createpassword.id = "createpassword";
+let createbutton = document.createElement("button");
+let buttoncreateText = document.createTextNode("Become member!")
+createbutton.appendChild(buttoncreateText);
+let creatediv = document.getElementById("create");
+
+const labelNewUser = document.createElement("label");
+labelNewUser.setAttribute("inputUser", "username");
+labelNewUser.innerHTML = "New username:";
+labelNewUser.setAttribute("id", "labelNewUser");
+
+const labelNewPassword = document.createElement("label");
+labelNewPassword.setAttribute("inputPassword", "password");
+labelNewPassword.innerHTML = "New password:";
+labelNewPassword.setAttribute("id", "labelNewPassword");
+
+
+
+createbutton.addEventListener("click", ()=>{
+
+    let newUser = {
+        id: objPeople.length + 1,
+        username: createuser.value,
+        password: createpassword.value,
+    };
+
+    objPeople.push('newUser', newUser)
+    console.log('new user pushed')
+    message.innerHTML = "You made a new account! Try log in!"
+    creatediv.removeChild(labelNewUser);
+    creatediv.removeChild(labelNewPassword);
+    creatediv.removeChild(createuser);
+    creatediv.removeChild(createpassword);
+    creatediv.removeChild(createbutton); 
+
+});

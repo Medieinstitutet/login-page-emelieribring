@@ -77,13 +77,6 @@ function welcome(){
 }
 
 
-// function notInlogged(){
-
-//     message.innerHTML = "You logged out!";
-// }
-
-
-
 logInButton.addEventListener("click", ()=>{
 
     logIn();
@@ -97,13 +90,12 @@ function logIn (){
     let username = inputUser.value;
     let password = inputPassword.value;
 
-    // localStorage.getItem("username");
-    // localStorage.getItem("password");
-
     console.log("login", username, password) 
 
-    for(i = 0; i < objPeople.length; i++){
-        if (username === objPeople[i].username && password === objPeople[i].password){
+    let lsobject = JSON.parse(localStorage.getItem("objPeople"));
+
+    for(i = 0; i < lsobject.length; i++){
+        if (username === lsobject[i].username && password === lsobject[i].password){
             console.log("user logged in");
             message.innerHTML= (username + " is logged in!");
             let inlogged = localStorage.setItem("username", username);
@@ -142,26 +134,27 @@ function logOutBtn (){
 })
 }
 
-let objPeople = [
 
-    {
-        username: "janne", 
-        password: "test"
-    },
+if(!localStorage.getItem("objPeople")){
+    let objPeople = [
 
-    {
-        username: "emelie",
-        password: "lala"
-    },
-
-    {
-        username: "rolf",
-        password: "lolo"
-    }
-]
-
-localStorage.setItem("objPeople", JSON.stringify(objPeople));
-
+        {
+            username: "janne", 
+            password: "test"
+        },
+    
+        {
+            username: "emelie",
+            password: "lala"
+        },
+    
+        {
+            username: "rolf",
+            password: "lolo"
+        }
+    ]
+    localStorage.setItem("objPeople", JSON.stringify(objPeople));
+}
 
 
 // ------------------------------------------------------------------------------------------------------------
@@ -175,15 +168,11 @@ newUserBtn.addEventListener("click", ()=>{
 
     createNew.removeChild(newUserBtn);
     creatediv.appendChild(labelNewUser);
-    creatediv.appendChild(labelNewPassword);
     creatediv.appendChild(createuser);
+    creatediv.appendChild(labelNewPassword);
     creatediv.appendChild(createpassword);
     creatediv.appendChild(createbutton); 
-
-   
-
 });
-
 
 
 let createuser = document.createElement("input");
@@ -207,19 +196,20 @@ labelNewPassword.setAttribute("inputPassword", "password");
 labelNewPassword.innerHTML = "New password:";
 labelNewPassword.setAttribute("id", "labelNewPassword");
 
-
-
 createbutton.addEventListener("click", ()=>{
 
+    let saveObjPeople = JSON.parse(localStorage.getItem("objPeople"));
+
     let newUser = {
-        id: objPeople.length + 1,
+        id: saveObjPeople.length + 1,
         username: createuser.value,
         password: createpassword.value,
     };
 
-    objPeople.push('newUser', newUser)
-    console.log('new user pushed')
-    message.innerHTML = "You made a new account! Try log in!"
+    saveObjPeople.push('newUser', newUser)
+    localStorage.setItem("objPeople", JSON.stringify(saveObjPeople));
+    console.log('new user pushed');
+    message.innerHTML = "You made a new account! Try log in!";
     creatediv.removeChild(labelNewUser);
     creatediv.removeChild(labelNewPassword);
     creatediv.removeChild(createuser);
@@ -227,3 +217,4 @@ createbutton.addEventListener("click", ()=>{
     creatediv.removeChild(createbutton); 
 
 });
+

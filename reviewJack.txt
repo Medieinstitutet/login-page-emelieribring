@@ -1,0 +1,15 @@
+1. Oj oj oj! 18mb på mp4 bakgrunden fick min dator att låta som ett jetflygplan när jag ladda sidan, hade generellt gett tips om att se om du kan formatera om eller komprimera viden till ett mindre format. För stillbilder är webp ganska najs.
+
+2. script.js rad 80, jag skulle nog köra in hela loginfunktionen i eventlistener (asså då på rad 80) iom att den funktionen inte verkar vara återkommande i resterande kod.
+
+3. script.js rad 138 SNYGGT löst med hur man kan skapa användarna i LS! Sjukt mkt cleanare än min lösning
+
+4. Om jag förstår rätt så är welcome() functionen en välkomstvy i utloggat format? För mer semantik hade jag nog döpt den till welcomeLoggedOut()
+
+5. Mestadels om jag ska vara petig, men jag hade nog testat att strukturera upp koden lite mer, t.ex. sätta alla variabler som connectar mellan js och index.html efter varrandra  ( asså alla let ... = document.getElementById("..."). För mig hade det blivit lite mer läsbart så!
+
+6. Jag kan göra ett nytt konto när jag är inloggad på en annan! Ska det vara så? :)
+
+7. Snyggt också att du använder användarnamnet som ett "login token"! Mer kompakt!
+
+
